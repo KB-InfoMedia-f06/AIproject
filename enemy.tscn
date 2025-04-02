@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpm112ajqitkt"]
+
+[ext_resource type="Texture2D" uid="uid://btxqlsu5x34gq" path="res://paintEnemy.png" id="1_3u00n"]
+[ext_resource type="Script" path="res://Enemy.cs" id="1_tnf7q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eth0q"]
+radius = 64.1249
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xxv6"]
+radius = 347.766
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xrpx"]
+radius = 227.6
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_tnf7q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3u00n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eth0q")
+
+[node name="Vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+shape = SubResource("CircleShape2D_0xxv6")
+debug_color = Color(0.992157, 1, 0, 0.105882)
+
+[node name="Vision2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision2"]
+shape = SubResource("CircleShape2D_7xrpx")
+debug_color = Color(0.992157, 0, 0, 0.105882)
+
+[connection signal="body_entered" from="Vision" to="." method="OnVisionEntered"]
+[connection signal="body_exited" from="Vision" to="." method="OnVisionExited"]
+[connection signal="body_entered" from="Vision2" to="." method="OnAttackRangeEntered"]
+[connection signal="body_exited" from="Vision2" to="." method="OnAttackRangeExited"]
