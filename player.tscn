@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkr8ab03pswwq"]
+[gd_scene load_steps=7 format=3 uid="uid://bkr8ab03pswwq"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_litxe"]
 [ext_resource type="Texture2D" uid="uid://cepdwpa10anfb" path="res://player.png" id="1_oc502"]
+[ext_resource type="Script" path="res://StateMachine.cs" id="3_nxh7e"]
+[ext_resource type="Script" path="res://States/PlayerIdle.cs" id="4_1vses"]
+[ext_resource type="Script" path="res://States/PlayerWalk.cs" id="5_md8d1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j73cg"]
 size = Vector2(126, 257.5)
@@ -15,3 +18,13 @@ texture = ExtResource("1_oc502")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j73cg")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("3_nxh7e")
+initialState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_1vses")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("5_md8d1")
