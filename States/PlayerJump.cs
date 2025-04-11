@@ -9,11 +9,13 @@ public partial class PlayerJump : State
     public override void Enter()
     {
 		player.Velocity = new Vector2(0, player.JumpVelocity);
+        player.sprite.Play("jump");
         GD.Print("enter jump");
     }
 
     public override void Exit()
     {
+        player.sprite.Stop();
         GD.Print("exit jump");
     }
 

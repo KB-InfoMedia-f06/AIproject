@@ -8,11 +8,13 @@ public partial class PlayerWalk : State
 
     public override void Enter()
     {
+        player.sprite.Play("walk");
         GD.Print("enter walk");
     }
 
     public override void Exit()
     {
+        player.sprite.Stop();
         GD.Print("exit walk");
     }
 
