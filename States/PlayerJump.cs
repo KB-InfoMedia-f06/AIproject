@@ -1,19 +1,20 @@
 using Godot;
 using System;
 
-public partial class PlayerWalk : State
+public partial class PlayerJump : State
 {
-    [Export]
+	 [Export]
     Player player;
 
     public override void Enter()
     {
-        GD.Print("enter walk");
+		player.Velocity = new Vector2(0, player.JumpVelocity);
+        GD.Print("enter jump");
     }
 
     public override void Exit()
     {
-        GD.Print("exit walk");
+        GD.Print("exit jump");
     }
 
     public override void Update(double delta)
@@ -27,14 +28,11 @@ public partial class PlayerWalk : State
         Vector2 direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
         if(direction.X != 0){
             velocity.X = MathF.Round(direction.X) * player.Speed;
-        } else {
-            EmitSignal(State.SignalName.Transitioned, this, "Idle");
-        }
-        player.Velocity = velocity;
+        } 
+		player.Velocity = velocity;
 
-        if(Input.IsActionJustPressed("Jump")){
-            EmitSignal(State.SignalName.Transitioned, this, "Jump");
-        }
+		if(player.IsOnFloor()){
+			EmitSignal(State.SignalName.Transitioned, this, "Idle");
+		}
     }
-
 }

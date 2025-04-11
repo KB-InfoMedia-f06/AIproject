@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkr8ab03pswwq"]
+[gd_scene load_steps=8 format=3 uid="uid://bkr8ab03pswwq"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_litxe"]
 [ext_resource type="Texture2D" uid="uid://cepdwpa10anfb" path="res://player.png" id="1_oc502"]
 [ext_resource type="Script" path="res://StateMachine.cs" id="3_nxh7e"]
 [ext_resource type="Script" path="res://States/PlayerIdle.cs" id="4_1vses"]
 [ext_resource type="Script" path="res://States/PlayerWalk.cs" id="5_md8d1"]
+[ext_resource type="Script" path="res://States/PlayerJump.cs" id="6_0od4e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j73cg"]
 size = Vector2(126, 257.5)
@@ -23,8 +24,14 @@ shape = SubResource("RectangleShape2D_j73cg")
 script = ExtResource("3_nxh7e")
 initialState = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("4_1vses")
+player = NodePath("../..")
 
-[node name="Walk" type="Node" parent="StateMachine"]
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("5_md8d1")
+player = NodePath("../..")
+
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("6_0od4e")
+player = NodePath("../..")
